@@ -1,2 +1,2 @@
 # outlaw-bot
-The Outlaw Bot. Victory will be ours
+The Outlaw Bot. Victory will be ours.
