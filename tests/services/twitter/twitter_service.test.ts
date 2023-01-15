@@ -11,8 +11,6 @@ describe("Tests the Twitter Service", () => {
         twitterService.getStream(streamSample)
             .then(stream => {
                 stream.on(ETwitterStream.Data, (data) => {
-                    console.log("Data received");
-                    console.log(JSON.parse(data));
                     expect.any(data);
                     stream.removeAllListeners();
                     done();
