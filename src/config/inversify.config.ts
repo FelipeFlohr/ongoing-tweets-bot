@@ -12,8 +12,10 @@ import TwitterRepositoryImpl from "../modules/twitter/repositories/impl/twitter_
 import ITwitterRepository from "../modules/twitter/repositories/twitter_repository";
 import TwitterServiceImpl from "../modules/twitter/services/impl/twitter_service_impl";
 import ITwitterService from "../modules/twitter/services/twitter_service";
-import TwitterHttpGetImpl from "../modules/twitter_http_get/services/services/impl/twitter_http_get_impl";
-import ITwitterHttpGet from "../modules/twitter_http_get/services/services/twitter_http_get";
+import TwitterHttpGetImpl from "../modules/twitter/services/impl/twitter_http_get_impl";
+import ITwitterHttpGet from "../modules/twitter/services/twitter_http_get";
+import ITwitterHttpGetStream from "../modules/twitter_stream/services/twtitter_http_get_stream";
+import TwitterHttpGetStreamImpl from "../modules/twitter_stream/services/impl/twitter_http_get_stream_impl";
 
 const container = new Container({
     defaultScope: "Request"
@@ -27,5 +29,6 @@ container.bind<ITwitterRepository>(TYPES.TwitterRepository).to(TwitterRepository
 container.bind<ITwitterHttpGet>(TYPES.TwitterHttpGet).to(TwitterHttpGetImpl).inRequestScope();
 container.bind<TwitterTweetMapper>(TYPES.TwitterTweetMapper).to(TwitterTweetMapper).inRequestScope();
 container.bind<TwitterUserMapper>(TYPES.TwitterUserMapper).to(TwitterUserMapper).inRequestScope();
+container.bind<ITwitterHttpGetStream>(TYPES.TwitterHttpGetStream).to(TwitterHttpGetStreamImpl).inRequestScope();
 
 export default container;

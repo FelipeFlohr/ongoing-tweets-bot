@@ -6,6 +6,7 @@ const TYPES = {
     TwitterHttpGet: Symbol("ITwitterHttpGet"),
     TwitterTweetMapper: Symbol("TwitterTweetMapper"),
     TwitterUserMapper: Symbol("TwitterUserMapper"),
+    TwitterHttpGetStream: Symbol("ITwitterHttpGetStream"),
 };
 
 export default TYPES;

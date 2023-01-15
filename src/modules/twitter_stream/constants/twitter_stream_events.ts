@@ -1,4 +1,5 @@
 export enum ETwitterStream {
+    End = "end",
     Connected = "connected",
     ConnectError = "connect error",
     ConnectionError = "connection error",

@@ -1,19 +1,21 @@
 import { injectable, inject } from "inversify";
 import TYPES from "../../../../types/dependency_injection/dependency_injection";
-import ITwitterHttpGet from "../../../twitter_http_get/services/services/twitter_http_get";
+import ITwitterHttpGet from "../../services/twitter_http_get";
 import { TwitterTweet } from "../../models/tweet";
 import TwitterTweetMapper from "../../models/tweet/mapper";
 import TwitterUser from "../../models/user";
 import TwitterUserMapper from "../../models/user/mapper";
-import TwitterUrls from "../constants/twitter_urls";
-import ITwitterRepository from "../twitter_repository";
+import TwitterUrls from "../../constants/twitter_urls";
+import ITwitterRepository, {
+    TweetsByPeriodAndUsernameConfig,
+} from "../twitter_repository";
 
 @injectable()
 export default class TwitterRepositoryImpl implements ITwitterRepository {
     private readonly twitterHttpGet: ITwitterHttpGet;
 
     public constructor(
-        @inject(TYPES.TwitterHttpGet) twitterHttpGet: ITwitterHttpGet,
+        @inject(TYPES.TwitterHttpGet) twitterHttpGet: ITwitterHttpGet
     ) {
         this.twitterHttpGet = twitterHttpGet;
     }
@@ -47,5 +49,21 @@ export default class TwitterRepositoryImpl implements ITwitterRepository {
 
         const user = await new TwitterUserMapper().fromJson(res);
         return user;
+    }
+
+    public async fetchTweetsByPeriodAndUsername(
+        config: TweetsByPeriodAndUsernameConfig
+    ): Promise<TwitterTweet[]> {
+        const user = await this.fetchUserByUsername(config.username);
+        const path = TwitterUrls.getTweetsBetweenPeriodAndUserId(
+            config.initialDate,
+            config.finalDate,
+            user.id,
+            config.maxAmount ? config.maxAmount : 100
+        );
+        const res = await this.twitterHttpGet.get(path);
+
+        const tweets = await new TwitterTweetMapper(this).fromJsonArray(res);
+        return tweets;
     }
 }

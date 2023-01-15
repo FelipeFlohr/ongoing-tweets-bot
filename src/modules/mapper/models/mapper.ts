@@ -12,7 +12,7 @@ export default abstract class Mapper<T> {
 
     protected abstract fromJsonImpl(val: Record<string, unknown>): Promise<T>;
 
-    private isRecordStringUnknown(val: unknown): val is Record<string, unknown> {
+    protected isRecordStringUnknown(val: unknown): val is Record<string, unknown> {
         if (typeof val !== "object") {
             return false;
         }
