@@ -1,0 +1,58 @@
+{
+  "name": "outlaw-bot",
+  "version": "1.0.0",
+  "description": "The Discord's Outlaw Bot.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "compile": "tsc -p tsconfig.build.json",
+    "build": "npm run lint && npm run compile",
+    "test": "jest",
+    "lint": "npx eslint --ext .ts src/ --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelipeFlohr/outlaw-bot.git"
+  },
+  "author": "Felipe Matheus Flohr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FelipeFlohr/outlaw-bot/issues"
+  },
+  "homepage": "https://github.com/FelipeFlohr/outlaw-bot#readme",
+  "dependencies": {
+    "axios": "^1.2.2",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.8.1"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.4.10",
+    "@types/express": "^4.17.15",
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "eslint": "^8.31.0",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.5"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "transform": {
+      "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!variables/.*)"
+    ]
+  }
+}
