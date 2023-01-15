@@ -1,8 +1,8 @@
 import { injectable, inject } from "inversify";
 import { TwitterTweet } from ".";
-import Mapper from "../../../../shared/models/mapper/mapper";
 import TYPES from "../../../../types/dependency_injection/dependency_injection";
 import ITwitterRepository from "../../repositories/twitter_repository";
+import Mapper from "../../../mapper/models/mapper";
 
 @injectable()
 export default class TwitterTweetMapper extends Mapper<TwitterTweet> {
