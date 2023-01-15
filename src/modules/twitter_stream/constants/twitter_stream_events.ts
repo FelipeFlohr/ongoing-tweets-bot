@@ -4,6 +4,7 @@ export enum ETwitterStream {
     ConnectError = "connect error",
     ConnectionError = "connection error",
     ConnectionClosed = "connection closed",
+    Disconnect = "disconnect",
     ConnectionLost = "connection lost",
     ReconnectAttempt = "reconnect attempt",
     Reconnected = "reconnected",

@@ -1,9 +1,10 @@
 import { CancelTokenSource } from "axios";
-import { ETwitterStream } from "../constants/twitter_stream_events";
+import { ETwitterStream } from "../../constants/twitter_stream_events";
+import { TwitterTweet } from "../../../twitter/models/tweet";
 
 export default class TwitterStream {
     public readonly stream: NodeJS.ReadableStream;
-    private readonly onData: (data: unknown) => void;
+    private readonly onData: (data: TwitterTweet) => void;
     private readonly onError: (error: unknown) => void;
     private readonly onConnect?: () => void;
     private readonly onDisconnect?: () => void;
@@ -13,7 +14,7 @@ export default class TwitterStream {
     public constructor(
         stream: NodeJS.ReadableStream,
         cancelToken: CancelTokenSource,
-        onData: (data: unknown) => void,
+        onData: (data: TwitterTweet) => void,
         onError: (error: unknown) => void,
         onConnect?: () => void,
         onDisconnect?: () => void,
@@ -40,12 +41,16 @@ export default class TwitterStream {
     private attachFunctionsToStream(): void {
         this.stream.on(ETwitterStream.Data, this.onData);
         this.stream.on(ETwitterStream.Error, this.onError);
+        this.stream.on("error", this.onError);
+        this.stream.on("connection", () => {
+            console.log("conectado");
+        });
 
         if (this.onConnect) {
             this.stream.on(ETwitterStream.Connected, this.onConnect);
         }
         if (this.onDisconnect) {
-            this.stream.on(ETwitterStream.ConnectionClosed, this.onDisconnect);
+            this.stream.on(ETwitterStream.Disconnect, this.onDisconnect);
         }
         if (this.onEnd) {
             this.stream.on(ETwitterStream.End, this.onEnd);
