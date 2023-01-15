@@ -6,14 +6,14 @@ import TYPES from "../types/dependency_injection/dependency_injection";
 import EnvironmentSettingsImpl from "../env/impl/environment_settings_impl";
 import IServer from "../server/server";
 import ServerImpl from "../server/impl/server_impl";
-import ITwitterService from "../services/twitter/twitter_service";
-import TwitterServiceImpl from "../services/twitter/impl/twitter_service_impl";
-import ITwitterRepository from "../repositories/twitter/twitter_repository";
-import TwitterRepositoryImpl from "../repositories/twitter/impl/twitter_repository_impl";
-import ITwitterHttpGet from "../services/twitter_http_get/services/twitter_http_get";
-import TwitterHttpGetImpl from "../services/twitter_http_get/services/impl/twitter_http_get_impl";
-import TwitterTweetMapper from "../models/twitter/tweet/mapper";
-import TwitterUserMapper from "../models/twitter/user/mapper";
+import TwitterTweetMapper from "../modules/twitter/models/tweet/mapper";
+import TwitterUserMapper from "../modules/twitter/models/user/mapper";
+import TwitterRepositoryImpl from "../modules/twitter/repositories/impl/twitter_repository_impl";
+import ITwitterRepository from "../modules/twitter/repositories/twitter_repository";
+import TwitterServiceImpl from "../modules/twitter/services/impl/twitter_service_impl";
+import ITwitterService from "../modules/twitter/services/twitter_service";
+import TwitterHttpGetImpl from "../modules/twitter_http_get/services/services/impl/twitter_http_get_impl";
+import ITwitterHttpGet from "../modules/twitter_http_get/services/services/twitter_http_get";
 
 const container = new Container({
     defaultScope: "Request"

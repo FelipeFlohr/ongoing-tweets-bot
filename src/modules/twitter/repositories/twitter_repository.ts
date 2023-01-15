@@ -1,5 +1,5 @@
-import { TwitterTweet } from "../../models/twitter/tweet";
-import TwitterUser from "../../models/twitter/user";
+import { TwitterTweet } from "../models/tweet";
+import TwitterUser from "../models/user";
 
 interface ITwitterRepository {
     fetchTweetById(id: string): Promise<TwitterTweet>

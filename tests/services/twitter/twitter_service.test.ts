@@ -1,7 +1,7 @@
 import container from "../../../src/config/inversify.config";
-import ITwitterService from "../../../src/services/twitter/twitter_service";
+import { ETwitterStream } from "../../../src/modules/twitter/services/constants/twitter_stream_events";
+import ITwitterService from "../../../src/modules/twitter/services/twitter_service";
 import TYPES from "../../../src/types/dependency_injection/dependency_injection";
-import { ETwitterStream } from "../../../src/services/twitter/constants/twitter_stream_events";
 
 describe("Tests the Twitter Service", () => {
     const twitterService = container.get<ITwitterService>(TYPES.TwitterService);

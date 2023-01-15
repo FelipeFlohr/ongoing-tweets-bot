@@ -1,9 +1,9 @@
-import { inject, injectable } from "inversify";
-import ITwitterService from "../twitter_service";
-import IEnvironmentSettings from "../../../env/environment_settings";
-import TYPES from "../../../types/dependency_injection/dependency_injection";
 import axios from "axios";
+import { injectable, inject } from "inversify";
 import { Stream } from "stream";
+import IEnvironmentSettings from "../../../../env/environment_settings";
+import TYPES from "../../../../types/dependency_injection/dependency_injection";
+import ITwitterService from "../twitter_service";
 
 @injectable()
 export default class TwitterServiceImpl implements ITwitterService {

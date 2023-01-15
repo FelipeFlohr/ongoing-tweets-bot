@@ -1,9 +1,9 @@
-import { inject, injectable } from "inversify";
-import IEnvironmentSettings from "../../../../env/environment_settings";
-import ITwitterHttpGet, { TwitterGetOptions } from "../twitter_http_get";
-import TYPES from "../../../../types/dependency_injection/dependency_injection";
 import axios from "axios";
+import { injectable, inject } from "inversify";
+import IEnvironmentSettings from "../../../../../env/environment_settings";
+import TYPES from "../../../../../types/dependency_injection/dependency_injection";
 import TwitterHttpGetUrls from "../../constants/urls";
+import ITwitterHttpGet, { TwitterGetOptions } from "../twitter_http_get";
 
 @injectable()
 export default class TwitterHttpGetImpl implements ITwitterHttpGet {

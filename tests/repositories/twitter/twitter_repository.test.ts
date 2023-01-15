@@ -1,5 +1,5 @@
 import container from "../../../src/config/inversify.config";
-import ITwitterRepository from "../../../src/repositories/twitter/twitter_repository";
+import ITwitterRepository from "../../../src/modules/twitter/repositories/twitter_repository";
 import TYPES from "../../../src/types/dependency_injection/dependency_injection";
 
 describe("Tests the Twitter Repository", () => {

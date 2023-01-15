@@ -1,15 +1,15 @@
-import { TwitterTweet } from "../../../models/twitter/tweet";
-import TwitterTweetMapper from "../../../models/twitter/tweet/mapper";
-import TwitterUser from "../../../models/twitter/user";
-import TwitterUserMapper from "../../../models/twitter/user/mapper";
-import ITwitterHttpGet from "../../../services/twitter_http_get/services/twitter_http_get";
-import TYPES from "../../../types/dependency_injection/dependency_injection";
+import { injectable, inject } from "inversify";
+import TYPES from "../../../../types/dependency_injection/dependency_injection";
+import ITwitterHttpGet from "../../../twitter_http_get/services/services/twitter_http_get";
+import { TwitterTweet } from "../../models/tweet";
+import TwitterTweetMapper from "../../models/tweet/mapper";
+import TwitterUser from "../../models/user";
+import TwitterUserMapper from "../../models/user/mapper";
 import TwitterUrls from "../constants/twitter_urls";
 import ITwitterRepository from "../twitter_repository";
-import { inject, injectable } from "inversify";
 
 @injectable()
-export default class TwitterRepository implements ITwitterRepository {
+export default class TwitterRepositoryImpl implements ITwitterRepository {
     private readonly twitterHttpGet: ITwitterHttpGet;
 
     public constructor(
