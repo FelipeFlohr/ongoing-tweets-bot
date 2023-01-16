@@ -7,6 +7,7 @@ import { injectable } from "inversify";
 export default class EnvironmentSettingsImpl implements IEnvironmentSettings {
     public readonly app: { readonly port: number; readonly nodeEnv: "production" | "development"; };
     public readonly twitter: { readonly apiKey: string; readonly apiKeySecret: string; readonly bearerToken: string; readonly accessToken: string; readonly accessTokenSecret: string; };
+    public readonly discord: { readonly token: string; };
 
     public constructor() {
         dotenv.config();
@@ -21,6 +22,9 @@ export default class EnvironmentSettingsImpl implements IEnvironmentSettings {
             bearerToken: process.env.TWITTER_BEARER_TOKEN as string,
             accessToken: process.env.TWITTER_ACCESS_TOKEN as string,
             accessTokenSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET as string,
+        };
+        this.discord = {
+            token: process.env.DISCORD_TOKEN as string,
         };
     }
 

@@ -11,6 +11,7 @@ import TwitterTweetMapper from "../../../twitter/models/tweet/mapper";
 import ITwitterRepository from "../../../twitter/repositories/twitter_repository";
 import log, { LogLevel } from "../../../../utils/logger";
 import TwitterUser from "../../../twitter/models/user";
+import TwitterStreamUrls from "../../constants/urls";
 
 @injectable()
 export default class TwitterStreamServiceImpl implements ITwitterStreamService {
@@ -45,7 +46,7 @@ export default class TwitterStreamServiceImpl implements ITwitterStreamService {
                 );
             },
             onEnd: options.onEnd,
-            path: "/tweets/search/stream?tweet.fields=author_id,created_at,text&backfill_minutes=2",
+            path: TwitterStreamUrls.stream,
         });
         return stream;
     }
@@ -60,8 +61,8 @@ export default class TwitterStreamServiceImpl implements ITwitterStreamService {
         return rules;
     }
 
-    public async removeRuleById(ruleId: string): Promise<void> {
-        return await this.twitterStreamRepository.removeRuleById(ruleId);
+    public async removeRule(rule: TwitterStreamRule): Promise<void> {
+        return await this.twitterStreamRepository.removeRuleById(rule.id);
     }
 
     public async addRuleToTargetUser(user: TwitterUser): Promise<TwitterStreamRule> {
@@ -108,7 +109,7 @@ export default class TwitterStreamServiceImpl implements ITwitterStreamService {
         try {
             parsedData = await new TwitterTweetMapper(
                 this.twitterRepository
-            ).fromJson(data);
+            ).fromJson(JSON.parse(data as string));
         } catch (err) {
             if (err instanceof Error) {
                 log(

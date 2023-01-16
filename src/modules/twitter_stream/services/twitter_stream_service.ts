@@ -21,7 +21,7 @@ interface ITwitterStreamService {
      * Remove a stream rule by its ID
      * @param ruleId The rule ID
      */
-    removeRuleById(ruleId: string): Promise<void>;
+    removeRule(rule: TwitterStreamRule): Promise<void>;
     /**
      * Adds a rule to filter tweets by the user
      * @param user Twitter user

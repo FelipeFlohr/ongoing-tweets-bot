@@ -1,6 +1,7 @@
 interface IEnvironmentSettings {
     readonly app: AppConfig
     readonly twitter: TwitterConfig
+    readonly discord: DiscordConfig
 }
 
 type AppConfig = {
@@ -14,6 +15,10 @@ type TwitterConfig = {
     readonly bearerToken: string
     readonly accessToken: string
     readonly accessTokenSecret: string
+}
+
+type DiscordConfig = {
+    readonly token: string
 }
 
 export default IEnvironmentSettings;
