@@ -1,38 +1,25 @@
 import { inject, injectable } from "inversify";
 import IDiscordService from "../discord_service";
-import { Client } from "discord.js";
-import IEnvironmentSettings from "../../../../env/environment_settings";
+import IDiscordRepository from "../../repositories/discord_repository";
 import TYPES from "../../../../types/dependency_injection/dependency_injection";
+import IEnvironmentSettings from "../../../../env/environment_settings";
+import { TextChannel } from "discord.js";
 
 @injectable()
 export default class DiscordServiceImpl implements IDiscordService {
-    public readonly client: Client<boolean>;
+    private readonly repository: IDiscordRepository;
     private readonly environmentSettings: IEnvironmentSettings;
-    private isLoggedIn: boolean;
 
-    public constructor(@inject(TYPES.EnvironmentSettings) environmentSettings: IEnvironmentSettings) {
+    public constructor(@inject(TYPES.DiscordRepository) discordRepository: IDiscordRepository, @inject(TYPES.EnvironmentSettings) environmentSettings: IEnvironmentSettings) {
+        this.repository = discordRepository;
         this.environmentSettings = environmentSettings;
-        this.client = new Client({
-            intents: ["Guilds", "GuildMessages", "GuildVoiceStates"],
-        });
-        this.isLoggedIn = false;
     }
 
-    private async getLoggedClient(): Promise<Client<true>> {
-        if (this.isLoggedIn) {
-            return this.client;
-        }
-
-        await this.client.login(this.environmentSettings.discord.token);
-        const client = await this.promisifyClientReady();
-        return client;
+    public async createCommand(): Promise<void> {
+        throw new Error("Method not implemented.");
     }
 
-    private promisifyClientReady(): Promise<Client<true>> {
-        return new Promise<Client<true>>((res) => {
-            this.client.on("ready", client => {
-                res(client);
-            });
-        });
+    public async sendMessage(channel: TextChannel, msg: string): Promise<void> {
+        await channel.send(msg);
     }
 }

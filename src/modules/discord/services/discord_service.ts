@@ -1,8 +1,8 @@
-import { Client } from "discord.js";
+import { TextChannel } from "discord.js";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IDiscordService {
-    readonly client: Client;
+    sendMessage(channel: TextChannel, msg: string): Promise<void>
+    createCommand(): Promise<void>
 }
 
 export default IDiscordService;

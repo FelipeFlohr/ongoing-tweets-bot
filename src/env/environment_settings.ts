@@ -19,6 +19,7 @@ type TwitterConfig = {
 
 type DiscordConfig = {
     readonly token: string
+    readonly guildFetchMaxAmount: number
 }
 
 export default IEnvironmentSettings;

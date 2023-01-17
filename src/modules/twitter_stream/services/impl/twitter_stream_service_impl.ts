@@ -15,6 +15,7 @@ import TwitterStreamUrls from "../../constants/urls";
 
 @injectable()
 export default class TwitterStreamServiceImpl implements ITwitterStreamService {
+    public lastStreamDisconnection?: Date;
     private readonly twitterRepository: ITwitterRepository;
     private readonly twitterStreamRepository: ITwitterStreamRepository;
     private twitterStream?: TwitterStream;
@@ -76,6 +77,7 @@ export default class TwitterStreamServiceImpl implements ITwitterStreamService {
         options: UserStreamOptions,
         cb?: (error: unknown) => void
     ) {
+        const date = new Date();
         if (error instanceof Error) {
             log(
                 `The Twitter stream returned an error: ${error.message}`,
@@ -94,6 +96,7 @@ export default class TwitterStreamServiceImpl implements ITwitterStreamService {
 
         this.closeStream();
         log("Cancelled Twitter stream. Creating a new one", LogLevel.WARN);
+        this.lastStreamDisconnection = date;
 
         const newStream = await this.getStream(options);
         this.twitterStream = newStream;

@@ -5,6 +5,12 @@ import TwitterStreamRule from "../models/twitter_stream_rule/twitter_stream_rule
 
 interface ITwitterStreamService {
     /**
+     * Sometimes the stream may disconnect, and
+     * this variable holds the date in which the
+     * stream was disconnected.
+     */
+    readonly lastStreamDisconnection?: Date
+    /**
      * Returns a working Twitter stream
      * @param options Event callbacks
      */

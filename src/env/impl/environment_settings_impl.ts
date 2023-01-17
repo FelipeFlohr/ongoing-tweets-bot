@@ -7,7 +7,7 @@ import { injectable } from "inversify";
 export default class EnvironmentSettingsImpl implements IEnvironmentSettings {
     public readonly app: { readonly port: number; readonly nodeEnv: "production" | "development"; };
     public readonly twitter: { readonly apiKey: string; readonly apiKeySecret: string; readonly bearerToken: string; readonly accessToken: string; readonly accessTokenSecret: string; };
-    public readonly discord: { readonly token: string; };
+    public readonly discord: { readonly token: string; readonly guildFetchMaxAmount: number; };
 
     public constructor() {
         dotenv.config();
@@ -25,6 +25,7 @@ export default class EnvironmentSettingsImpl implements IEnvironmentSettings {
         };
         this.discord = {
             token: process.env.DISCORD_TOKEN as string,
+            guildFetchMaxAmount: this.parseEnvInteger(process.env.DISCORD_GUILD_FETCH_AMOUNT, "DISCORD_GUILD_FETCH_AMOUNT"),
         };
     }
 

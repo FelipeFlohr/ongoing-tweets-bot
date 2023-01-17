@@ -39,5 +39,6 @@ container.bind<ITwitterStreamService>(TYPES.TwitterStreamService).to(TwitterStre
 container.bind<ITwitterStreamRepository>(TYPES.TwitterStreamRepository).to(TwitterStreamRepositoryImpl).inSingletonScope();
 container.bind<ITwitterHttpPost>(TYPES.TwitterHttpPost).to(TwitterHttpPostImpl).inRequestScope();
 container.bind<IDiscordService>(TYPES.DiscordService).to(DiscordServiceImpl).inSingletonScope();
+container.bind<ITwitterRepository>(TYPES.TwitterRepository).to(TwitterRepositoryImpl).inSingletonScope();
 
 export default container;

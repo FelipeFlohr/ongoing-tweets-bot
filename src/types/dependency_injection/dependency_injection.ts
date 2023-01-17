@@ -10,6 +10,7 @@ const TYPES = {
     TwitterStreamRepository: Symbol("ITwitterStreamRepository"),
     TwitterHttpPost: Symbol("ITwitterHttpPost"),
     DiscordService: Symbol("IDiscordService"),
+    DiscordRepository: Symbol("IDiscordRepository"),
 };
 
 export default TYPES;
