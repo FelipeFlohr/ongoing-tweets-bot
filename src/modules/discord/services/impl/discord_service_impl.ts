@@ -3,7 +3,7 @@ import IDiscordService from "../discord_service";
 import IDiscordRepository from "../../repositories/discord_repository";
 import TYPES from "../../../../types/dependency_injection/dependency_injection";
 import IEnvironmentSettings from "../../../../env/environment_settings";
-import { TextChannel } from "discord.js";
+import { SlashCommandBuilder, TextChannel } from "discord.js";
 
 @injectable()
 export default class DiscordServiceImpl implements IDiscordService {
@@ -16,7 +16,14 @@ export default class DiscordServiceImpl implements IDiscordService {
     }
 
     public async createCommand(): Promise<void> {
-        throw new Error("Method not implemented.");
+        const guildsOAuth = await this.repository.fetchGuilds();
+        const guildFetchPromises = guildsOAuth.map(async guild => await guild.fetch());
+        const guilds = await Promise.all(guildFetchPromises);
+
+        const guildCommandCreation = guilds.map(async guild => {
+            await guild.commands.create(new SlashCommandBuilder());
+        });
+        await Promise.all(guildCommandCreation);
     }
 
     public async sendMessage(channel: TextChannel, msg: string): Promise<void> {

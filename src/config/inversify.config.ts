@@ -22,6 +22,8 @@ import ITwitterHttpPost from "../modules/twitter/services/twitter_http_post";
 import TwitterHttpPostImpl from "../modules/twitter/services/impl/twitter_http_post_impl";
 import IDiscordService from "../modules/discord/services/discord_service";
 import DiscordServiceImpl from "../modules/discord/services/impl/discord_service_impl";
+import IDiscordRepository from "../modules/discord/repositories/discord_repository";
+import DiscordRepositoryImpl from "../modules/discord/repositories/impl/discord_repository_impl";
 
 const container = new Container({
     defaultScope: "Request"
@@ -38,6 +40,7 @@ container.bind<TwitterUserMapper>(TYPES.TwitterUserMapper).to(TwitterUserMapper)
 container.bind<ITwitterStreamService>(TYPES.TwitterStreamService).to(TwitterStreamServiceImpl).inRequestScope();
 container.bind<ITwitterStreamRepository>(TYPES.TwitterStreamRepository).to(TwitterStreamRepositoryImpl).inSingletonScope();
 container.bind<ITwitterHttpPost>(TYPES.TwitterHttpPost).to(TwitterHttpPostImpl).inRequestScope();
+container.bind<IDiscordRepository>(TYPES.DiscordRepository).to(DiscordRepositoryImpl).inSingletonScope();
 container.bind<IDiscordService>(TYPES.DiscordService).to(DiscordServiceImpl).inSingletonScope();
 container.bind<ITwitterRepository>(TYPES.TwitterRepository).to(TwitterRepositoryImpl).inSingletonScope();
 
