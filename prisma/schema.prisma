@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TwitterUser {
+  id                  Int                   @id @default(autoincrement())
+  username            String                @db.VarChar(16)
+  name                String                @db.VarChar(50)
+  GuildHasTwitterUser GuildHasTwitterUser[]
+}
+
+model GuildHasTwitterUser {
+  id            Int         @id @default(autoincrement())
+  guildId       String      @db.VarChar(256)
+  twitterUserId Int
+  twitterUser   TwitterUser @relation(fields: [twitterUserId], references: [id])
+
+  @@unique([guildId, twitterUserId])
+}

@@ -24,6 +24,8 @@ import IDiscordService from "../modules/discord/services/discord_service";
 import DiscordServiceImpl from "../modules/discord/services/impl/discord_service_impl";
 import IDiscordRepository from "../modules/discord/repositories/discord_repository";
 import DiscordRepositoryImpl from "../modules/discord/repositories/impl/discord_repository_impl";
+import IPrismaService from "../modules/database/services/prisma_service";
+import PrismaServiceImpl from "../modules/database/services/impl/prisma_service_impl";
 
 const container = new Container({
     defaultScope: "Request"
@@ -43,5 +45,6 @@ container.bind<ITwitterHttpPost>(TYPES.TwitterHttpPost).to(TwitterHttpPostImpl).
 container.bind<IDiscordRepository>(TYPES.DiscordRepository).to(DiscordRepositoryImpl).inSingletonScope();
 container.bind<IDiscordService>(TYPES.DiscordService).to(DiscordServiceImpl).inSingletonScope();
 container.bind<ITwitterRepository>(TYPES.TwitterRepository).to(TwitterRepositoryImpl).inSingletonScope();
+container.bind<IPrismaService>(TYPES.PrismaService).to(PrismaServiceImpl).inSingletonScope();
 
 export default container;

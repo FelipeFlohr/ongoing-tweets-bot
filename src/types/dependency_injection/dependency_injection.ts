@@ -11,6 +11,9 @@ const TYPES = {
     TwitterHttpPost: Symbol("ITwitterHttpPost"),
     DiscordService: Symbol("IDiscordService"),
     DiscordRepository: Symbol("IDiscordRepository"),
+    PrismaService: Symbol("IPrismaService"),
+    DatabaseRepository: Symbol("IDatabaseRepository"),
+    DatabaseService: Symbol("IDatabaseService"),
 };
 
 export default TYPES;
