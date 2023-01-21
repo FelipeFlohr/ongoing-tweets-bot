@@ -12,48 +12,52 @@ export default class DiscordSlashCommand {
             .setName(this.options.name)
             .setDescription(this.options.description);
 
-        for (const option of this.options.options) {
-            switch (option.type) {
-            case "boolean":
-                command.addBooleanOption((cmdOption) => {
-                    return cmdOption
-                        .setName(option.name)
-                        .setDescription(option.description)
-                        .setRequired(option.required);
-                });
-                break;
-            case "channel":
-                command.addChannelOption((cmdOption) => {
-                    return cmdOption
-                        .setName(option.name)
-                        .setDescription(option.description)
-                        .setRequired(option.required);
-                });
-                break;
-            case "integer":
-                command.addIntegerOption((cmdOption) => {
-                    return cmdOption
-                        .setName(option.name)
-                        .setDescription(option.description)
-                        .setRequired(option.required);
-                });
-                break;
-            case "number":
-                command.addNumberOption((cmdOption) => {
-                    return cmdOption
-                        .setName(option.name)
-                        .setDescription(option.description)
-                        .setRequired(option.required);
-                });
-                break;
-            case "string":
-                command.addStringOption((cmdOption) => {
-                    return cmdOption
-                        .setName(option.name)
-                        .setDescription(option.description)
-                        .setRequired(option.required);
-                });
-                break;
+        if (this.options.options) {
+            for (const option of this.options.options) {
+                switch (option.type) {
+                case "boolean":
+                    command.addBooleanOption((cmdOption) => {
+                        return cmdOption
+                            .setName(option.name)
+                            .setDescription(option.description)
+                            .setRequired(option.required);
+                    });
+                    break;
+                case "channel":
+                    command.addChannelOption((cmdOption) => {
+                        return cmdOption
+                            .setName(option.name)
+                            .setDescription(option.description)
+                            .setRequired(option.required);
+                    });
+                    break;
+                case "integer":
+                    command.addIntegerOption((cmdOption) => {
+                        return cmdOption
+                            .setName(option.name)
+                            .setDescription(option.description)
+                            .setRequired(option.required);
+                    });
+                    break;
+                case "number":
+                    command.addNumberOption((cmdOption) => {
+                        return cmdOption
+                            .setName(option.name)
+                            .setDescription(option.description)
+                            .setRequired(option.required);
+                    });
+                    break;
+                case "string":
+                    command.addStringOption((cmdOption) => {
+                        return cmdOption
+                            .setName(option.name)
+                            .setDescription(option.description)
+                            .setRequired(option.required)
+                            .setMinLength(1)
+                            .setMaxLength(32);
+                    });
+                    break;
+                }
             }
         }
 
@@ -64,7 +68,7 @@ export default class DiscordSlashCommand {
 export type DiscordSlashCommandOptions = {
     readonly name: string;
     readonly description: string;
-    readonly options: SlashCommandOption[];
+    readonly options?: SlashCommandOption[];
 };
 
 export type SlashCommandOption = {

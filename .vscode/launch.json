@@ -11,8 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "node",
-            "preLaunchTask": "npm: compile"
+            "type": "node"
         },
         {
             "name": "Debug Jest Tests",
