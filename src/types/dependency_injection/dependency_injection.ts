@@ -14,6 +14,8 @@ const TYPES = {
     PrismaService: Symbol("IPrismaService"),
     DatabaseRepository: Symbol("IDatabaseRepository"),
     DatabaseService: Symbol("IDatabaseService"),
+    CommandGetter: Symbol("ICommandGetter"),
+    DiscordBot: Symbol("IDiscordBot"),
 };
 
 export default TYPES;

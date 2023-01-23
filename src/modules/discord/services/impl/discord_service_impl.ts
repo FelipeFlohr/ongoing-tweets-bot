@@ -2,8 +2,9 @@ import { inject, injectable } from "inversify";
 import IDiscordService from "../discord_service";
 import IDiscordRepository from "../../repositories/discord_repository";
 import TYPES from "../../../../types/dependency_injection/dependency_injection";
-import { TextChannel } from "discord.js";
+import { ApplicationCommand, Guild, TextChannel } from "discord.js";
 import DiscordSlashCommand from "../../models/discord_slash_command";
+import AsyncArray from "../../../../utils/async_array";
 
 @injectable()
 export default class DiscordServiceImpl implements IDiscordService {
@@ -28,5 +29,24 @@ export default class DiscordServiceImpl implements IDiscordService {
 
     public async sendMessage(channel: TextChannel, msg: string): Promise<void> {
         await channel.send(msg);
+    }
+
+    public async getCommands(guild: Guild): Promise<Array<ApplicationCommand<Record<string, never>>>> {
+        const commands = await guild.commands.fetch();
+        const arrayCommands = commands.map(cmd => cmd);
+
+        return arrayCommands;
+    }
+
+    public async getGuilds(): Promise<Guild[]> {
+        const guildsOAuth = await this.repository.fetchGuilds();
+        const guildArray = guildsOAuth.map(g => g);
+
+        const asyncGuildArray = new AsyncArray(guildArray);
+        const guilds = await asyncGuildArray.map(async guild => {
+            const res = await guild.fetch();
+            return res;
+        });
+        return guilds;
     }
 }

@@ -26,6 +26,14 @@ import IDiscordRepository from "../modules/discord/repositories/discord_reposito
 import DiscordRepositoryImpl from "../modules/discord/repositories/impl/discord_repository_impl";
 import IPrismaService from "../modules/database/services/prisma_service";
 import PrismaServiceImpl from "../modules/database/services/impl/prisma_service_impl";
+import IDatabaseRepository from "../modules/database/repositories/database_repository";
+import DatabaseRepositoryImpl from "../modules/database/repositories/impl/database_repository_impl";
+import IDatabaseService from "../modules/database/services/database_service";
+import DatabaseServiceImpl from "../modules/database/services/impl/database_service_impl";
+import ICommandGetter from "../modules/discord/commands/command_getter";
+import CommandGetterImpl from "../modules/discord/commands/command_getter/command_getter_impl";
+import IDiscordBot from "../modules/discord/bot/discord_bot";
+import DiscordBotImpl from "../modules/discord/bot/impl/discord_bot_impl";
 
 const container = new Container({
     defaultScope: "Request"
@@ -34,17 +42,26 @@ const container = new Container({
 // Bindings
 container.bind<IEnvironmentSettings>(TYPES.EnvironmentSettings).to(EnvironmentSettingsImpl).inSingletonScope();
 container.bind<IServer>(TYPES.Server).to(ServerImpl).inSingletonScope();
+
 container.bind<ITwitterService>(TYPES.TwitterService).to(TwitterServiceImpl).inSingletonScope();
 container.bind<ITwitterRepository>(TYPES.TwitterRepository).to(TwitterRepositoryImpl).inSingletonScope();
 container.bind<ITwitterHttpGet>(TYPES.TwitterHttpGet).to(TwitterHttpGetImpl).inRequestScope();
+container.bind<ITwitterHttpPost>(TYPES.TwitterHttpPost).to(TwitterHttpPostImpl).inRequestScope();
 container.bind<TwitterTweetMapper>(TYPES.TwitterTweetMapper).to(TwitterTweetMapper).inRequestScope();
 container.bind<TwitterUserMapper>(TYPES.TwitterUserMapper).to(TwitterUserMapper).inRequestScope();
+
 container.bind<ITwitterStreamService>(TYPES.TwitterStreamService).to(TwitterStreamServiceImpl).inRequestScope();
 container.bind<ITwitterStreamRepository>(TYPES.TwitterStreamRepository).to(TwitterStreamRepositoryImpl).inSingletonScope();
-container.bind<ITwitterHttpPost>(TYPES.TwitterHttpPost).to(TwitterHttpPostImpl).inRequestScope();
+
 container.bind<IDiscordRepository>(TYPES.DiscordRepository).to(DiscordRepositoryImpl).inSingletonScope();
 container.bind<IDiscordService>(TYPES.DiscordService).to(DiscordServiceImpl).inSingletonScope();
-container.bind<ITwitterRepository>(TYPES.TwitterRepository).to(TwitterRepositoryImpl).inSingletonScope();
+container.bind<IDiscordBot>(TYPES.DiscordBot).to(DiscordBotImpl).inSingletonScope();
+
 container.bind<IPrismaService>(TYPES.PrismaService).to(PrismaServiceImpl).inSingletonScope();
+
+container.bind<IDatabaseRepository>(TYPES.DatabaseRepository).to(DatabaseRepositoryImpl).inSingletonScope();
+container.bind<IDatabaseService>(TYPES.DatabaseService).to(DatabaseServiceImpl).inSingletonScope();
+
+container.bind<ICommandGetter>(TYPES.CommandGetter).to(CommandGetterImpl).inSingletonScope();
 
 export default container;

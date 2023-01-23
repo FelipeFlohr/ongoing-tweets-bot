@@ -53,8 +53,7 @@ export default class DiscordSlashCommand {
                             .setName(option.name)
                             .setDescription(option.description)
                             .setRequired(option.required)
-                            .setMinLength(1)
-                            .setMaxLength(32);
+                            .setMinLength(1);
                     });
                     break;
                 }
