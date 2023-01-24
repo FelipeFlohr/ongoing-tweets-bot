@@ -7,7 +7,7 @@ import AsyncArray from "../../../../utils/async_array";
 
 @injectable()
 export default class DiscordBotImpl extends IDiscordBot {
-    private readonly discordService: IDiscordService;
+    private readonly service: IDiscordService;
     private readonly commandGetter: ICommandGetter;
 
     public constructor(
@@ -15,18 +15,22 @@ export default class DiscordBotImpl extends IDiscordBot {
         @inject(TYPES.CommandGetter) commandGetter: ICommandGetter
     ) {
         super();
-        this.discordService = discordService;
+        this.service = discordService;
         this.commandGetter = commandGetter;
     }
 
     protected override async persistDiscordCommands(): Promise<void> {
         const asyncArray = new AsyncArray(this.commandGetter.commands);
         await asyncArray.forEach(async (command) => {
-            await this.discordService.createCommand(command);
+            await this.service.createCommand(command);
         });
     }
 
     protected override async deleteExistingDiscordCommands(): Promise<void> {
-        throw new Error("Method not implemented.");
+        const guilds = await this.service.getGuilds();
+        const asyncGuildArray = new AsyncArray(guilds);
+        await asyncGuildArray.forEach(async guild => {
+            await guild.delete();
+        });
     }
 }
