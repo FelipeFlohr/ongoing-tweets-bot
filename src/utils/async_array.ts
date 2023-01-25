@@ -21,9 +21,9 @@ export default class AsyncArray<T> {
 
     public async map<U>(
         callbackfn: (i: T) => Promise<U>,
-        runParallel = false
+        parallel = true
     ): Promise<U[]> {
-        if (runParallel) {
+        if (parallel) {
             const promises = this.array.map(callbackfn);
             return await Promise.all(promises);
         }

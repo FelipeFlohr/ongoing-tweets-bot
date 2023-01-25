@@ -1,4 +1,4 @@
-import container from "./config/inversify.config";
+import container from "./container/inversify.config";
 import IDiscordBot from "./modules/discord/bot/discord_bot";
 import IServer from "./server/server";
 import TYPES from "./types/dependency_injection/dependency_injection";

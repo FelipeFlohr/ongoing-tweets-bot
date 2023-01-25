@@ -1,4 +1,4 @@
-import container from "../../../../src/config/inversify.config";
+import container from "../../../../src/container/inversify.config";
 import ITwitterRepository from "../../../../src/modules/twitter/repositories/twitter_repository";
 import TYPES from "../../../../src/types/dependency_injection/dependency_injection";
 

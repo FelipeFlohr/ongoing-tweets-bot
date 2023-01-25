@@ -7,6 +7,7 @@ import TYPES from "../../../../types/dependency_injection/dependency_injection";
 @injectable()
 export default class DiscordRepositoryImpl implements IDiscordRepository {
     private readyClient?: Client<true>;
+    private isLoggingIn: boolean;
     private readonly client: Client<boolean>;
     private readonly environmentSettings: IEnvironmentSettings;
     private readonly interactionCallbacks: Array<(interaction: Interaction<CacheType>) => void | Promise<void>>;
@@ -17,15 +18,26 @@ export default class DiscordRepositoryImpl implements IDiscordRepository {
         });
         this.environmentSettings = environmentSettings;
         this.interactionCallbacks = [];
+        this.isLoggingIn = false;
     }
     
     public async getClient(): Promise<Client<true>> {
         if (this.readyClient) {
             return this.readyClient;
         }
-        
-        await this.login();
-        return await this.promisifyClientReady();
+        if (this.isLoggingIn) {
+            const promisifyLogin = () => new Promise<Client<true>>(res => {
+                const interval = setInterval(() => {
+                    if (this.readyClient?.isReady()) {
+                        res(this.client);
+                        clearInterval(interval);
+                    }
+                }, 500);
+            });
+            return await promisifyLogin();
+        }
+
+        return await this.login();
     }
 
     public async fetchGuilds(options?: GuildFetchOptions | undefined): Promise<Collection<string, OAuth2Guild>> {
@@ -49,8 +61,13 @@ export default class DiscordRepositoryImpl implements IDiscordRepository {
         });
     }
 
-    private async login(): Promise<void> {
+    private async login(): Promise<Client<true>> {
+        this.isLoggingIn = true;
         await this.client.login(this.environmentSettings.discord.token);
+        this.readyClient = await this.promisifyClientReady();
+        this.isLoggingIn = false;
+
+        return this.readyClient;
     }
 
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import container from "../../../src/config/inversify.config";
+import container from "../../../src/container/inversify.config";
 import ITwitterStreamRepository from "../../../src/modules/twitter_stream/repositories/twitter_stream_repository";
 import TYPES from "../../../src/types/dependency_injection/dependency_injection";
 import sleep from "../../../src/utils/sleep";

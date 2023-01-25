@@ -30,7 +30,12 @@ export default class DiscordBotImpl extends IDiscordBot {
         const guilds = await this.service.getGuilds();
         const asyncGuildArray = new AsyncArray(guilds);
         await asyncGuildArray.forEach(async guild => {
-            await guild.delete();
+            const commands = await this.service.getCommands(guild);
+            const asyncCommandArray = new AsyncArray(commands);
+
+            await asyncCommandArray.forEach(async command => {
+                await command.delete();
+            });
         });
     }
 }
