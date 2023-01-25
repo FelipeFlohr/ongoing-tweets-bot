@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import IDiscordService from "../discord_service";
 import IDiscordRepository from "../../repositories/discord_repository";
 import TYPES from "../../../../types/dependency_injection/dependency_injection";
-import { ApplicationCommand, Guild, TextChannel } from "discord.js";
+import { ApplicationCommand, Client, Guild, TextChannel } from "discord.js";
 import DiscordSlashCommand from "../../models/discord_slash_command";
 import AsyncArray from "../../../../utils/async_array";
 
@@ -12,6 +12,10 @@ export default class DiscordServiceImpl implements IDiscordService {
 
     public constructor(@inject(TYPES.DiscordRepository) discordRepository: IDiscordRepository) {
         this.repository = discordRepository;
+    }
+
+    public async getClient(): Promise<Client<true>> {
+        return await this.repository.getClient();
     }
 
     public async createCommand(command: DiscordSlashCommand): Promise<void> {

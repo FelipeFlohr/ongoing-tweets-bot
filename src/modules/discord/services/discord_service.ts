@@ -1,4 +1,4 @@
-import { ApplicationCommand, Guild, TextChannel } from "discord.js";
+import { ApplicationCommand, Client, Guild, TextChannel } from "discord.js";
 import DiscordSlashCommand from "../models/discord_slash_command";
 
 interface IDiscordService {
@@ -6,6 +6,7 @@ interface IDiscordService {
     createCommand(command: DiscordSlashCommand): Promise<void>
     getCommands(guild: Guild): Promise<Array<ApplicationCommand<Record<string, never>>>>
     getGuilds(): Promise<Array<Guild>>
+    getClient(): Promise<Client<true>>
 }
 
 export default IDiscordService;
