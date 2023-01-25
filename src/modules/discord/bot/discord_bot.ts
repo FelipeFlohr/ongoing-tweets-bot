@@ -35,7 +35,9 @@ export default abstract class IDiscordBot {
     private async interactionHandler(): Promise<void> {
         const client = await this.service.getClient();
         client.on("interactionCreate", async interaction => {
-            console.log("interaction created " + interaction);
+            if (interaction.isCommand()) {
+                const commandName = interaction.commandName;
+            }
         });
     }
 }

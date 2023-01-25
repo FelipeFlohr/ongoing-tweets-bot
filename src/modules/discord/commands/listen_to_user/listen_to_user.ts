@@ -1,16 +1,14 @@
 import DiscordSlashCommand from "../../models/discord_slash_command";
 import ICommandModel from "../command_model";
 
-export default class ListenToUserCommand implements ICommandModel {
-    public readonly cmdName: string;
-
-    public constructor() {
-        this.cmdName = "listen";
+export default class ListenToUserCommand extends ICommandModel {
+    public constructor(commandName: string) {
+        super(commandName);
     }
 
     public getCommand(): DiscordSlashCommand {
         const res = new DiscordSlashCommand({
-            name: this.cmdName,
+            name: this.name,
             description: "Listen to a Twitter user",
             options: [
                 {
